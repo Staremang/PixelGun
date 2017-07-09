@@ -4,6 +4,8 @@
 @font-medium: 		500;
 @font-heavy: 		600;
 
+@isMobile: 			575px;
+
 body {
 	font-family: 'Futura PT', sans-serif;
 	font-size: 14px;
@@ -15,6 +17,9 @@ img {
 h1 {
 	font-weight: @font-medium;
 	font-size: 48px;
+	@media all and (max-width: @isMobile) {
+		font-size: 30px;
+	}
 }
 a {
 	color: #ffba00;
@@ -30,12 +35,24 @@ a {
 	display: flex;
 //	align-items: center;
 	justify-content: center;
+	position: relative;
+	overflow: hidden;
 	
 //	border-bottom: 1px solid red;
 	
 //	background: url(/img/rm/2.jpg) center top no-repeat;
+	@media all and (max-width: @isMobile) {
+		display: block;
+		height: auto!important;
+		padding: 30px 0;
+	}
 }
-
+.first-section {
+	min-height: 100vh;
+	text-align: center;
+	flex-direction: column;
+	display: flex;
+}
 header {
 	background: rgba(255, 255, 255, 0.8);
 	position: fixed;
@@ -318,6 +335,30 @@ header {
 		margin-bottom: 20px;
 	}
 }
+.about-slider {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -10px;
+	margin-right: -10px;
+	&__img {
+		margin-bottom: 20px;
+		flex: 0 0 50%;
+		max-width: 50%;
+		padding: 0 10px;
+	}
+}
+@media all and (max-width: @isMobile) {
+	.about-slider {
+		display: block;
+		width: auto;
+		&__img {
+			margin-bottom: 0;
+			padding: 0;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+}
 .screenshots {
 	background: url(../img/screenshots-back.jpg) center no-repeat;
 	background-size: cover;
@@ -361,6 +402,8 @@ header {
 			left: 0;
 			right: 0;
 			display: block;
+			width: 192px;
+			height: 33px;
 		}
 		&__description {
 			display: block;
@@ -375,7 +418,7 @@ header {
 	
 }
 .screenshots-slider {
-	height: 400px;
+//	height: 400px;
 	text-align: center;
 	&__item {
 		width: 980px;
@@ -400,15 +443,21 @@ header {
 		height: 140px;
 	}
 }
+
 .vacancy-container {
-	display: flex;
-	padding-left: 10px;
-	padding-right: 10px;
+    margin-top: 46px;
+    margin-bottom: 15px;
+}
+@media all and (max-width: @isMobile) {
+	.vacancy-container {
+		display: block;
+		margin-left: 0;
+		margin-right: 0;
+	}
 }
 .vacancy {
-	margin-top: 46px;
-	margin-bottom: 35px;
 	position: relative;
+	margin-bottom: 20px;
 //	background: url(../img/rm/1.png) no-repeat top center;
 	background-color: #4c4c4c;
 	text-decoration: none;
@@ -487,6 +536,7 @@ header {
 	justify-content: flex-start;
 	margin-bottom: 70px;
 }
+	
 .address {
 	background: white;
 	box-shadow: 0px 3px 6.51px 0.49px rgba(0, 0, 0, 0.1);
@@ -499,6 +549,7 @@ header {
 		font-size: 18px;
 		margin-top: 0;
 		margin-bottom: 8px;
+		font-weight: @font-medium;
 	}
 	&__link {
 		margin-top: 20px;
@@ -511,7 +562,7 @@ header {
 	}
 }
 .t {
-	background: url(../img/rm/3.png) no-repeat center top red;
+	background: url(../img/rm/m-5.png) no-repeat center top red;
 }
 .copyright {
 	font-weight: @font-book;
@@ -520,6 +571,40 @@ header {
 	bottom: 39px;
 	left: 0;
 	right: 0;
+}
+@media all and (max-width: @isMobile) {
+	.map {
+		position: relative;
+		height: 200px;
+	}
+	.map-container {
+		display: block;
+		margin-bottom: 0;
+		min-height: 1px;
+		height: auto;
+	}
+	
+	.address {
+		box-shadow: none;
+		padding-left: 10px;
+		padding-right: 10px;
+		text-align: center;
+		&__link {
+			margin-top: 16px;
+			font-size: 16px;
+		}
+	}
+	.contact {
+		padding-top: 26px;
+		&__title {
+			margin-bottom: 23px;
+		}
+	}
+	.copyright {
+		position: relative;
+		bottom: 0;
+		margin-top: 21px;
+	}
 }
 @-webkit-keyframes fadeIn {
 	0% {
