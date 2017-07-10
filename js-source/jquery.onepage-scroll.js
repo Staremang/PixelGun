@@ -305,7 +305,7 @@
 
 
       if(settings.pagination == true) {
-        paginationList += "<li><a data-index='"+(i+1)+"' href='#" + (i+1) + "'></a></li>"
+        paginationList += "<li><a data-index='"+(i+1)+"' href='#" + (i+1) + "'></a>" + (typeof $(this).attr('id') != 'undefined' ? ('<span>' + $(this).attr('id') + '</span>') : "") + "</li>"
       }
     });
 

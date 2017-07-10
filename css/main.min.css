@@ -644,7 +644,6 @@ template {
   opacity: 1;
 }
 .screenshots-slider.owl-carousel {
-  width: 980px;
   max-width: 100%;
   left: 0;
   right: 0;
@@ -654,21 +653,23 @@ template {
 .screenshots-slider.owl-carousel .owl-stage-outer {
   overflow: visible;
 }
-.screenshots-slider.owl-carousel .owl-item {
-  -webkit-transition: -webkit-transform .25s ease;
-  transition: -webkit-transform .25s ease;
-  -o-transition: transform .25s ease;
-  transition: transform .25s ease;
-  transition: transform .25s ease, -webkit-transform .25s ease;
-}
-.screenshots-slider.owl-carousel .owl-item:not([class*="center"]) {
-  -webkit-transform: scale(0.8);
-  -ms-transform: scale(0.8);
-  transform: scale(0.8);
-  background: black;
-}
-.screenshots-slider.owl-carousel .owl-item:not([class*="center"]) > .screenshots-slider__item {
-  opacity: .5;
+@media (min-width: 576px) {
+  .screenshots-slider.owl-carousel .owl-item {
+    -webkit-transition: -webkit-transform .25s ease;
+    transition: -webkit-transform .25s ease;
+    -o-transition: transform .25s ease;
+    transition: transform .25s ease;
+    transition: transform .25s ease, -webkit-transform .25s ease;
+    background: black;
+  }
+  .screenshots-slider.owl-carousel .owl-item:not([class*="center"]) {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+  .screenshots-slider.owl-carousel .owl-item:not([class*="center"]) > .screenshots-slider__item {
+    opacity: .5;
+  }
 }
 .screenshots-slider .owl-dots {
   display: none;
@@ -3019,6 +3020,27 @@ html {
 .onepage-pagination li {
   padding: 0;
   text-align: center;
+  position: relative;
+}
+.onepage-pagination li > span {
+  background: url("data:image/svg+xml,%3Csvg%20width%3D%2295px%22%20height%3D%2220px%22%20viewBox%3D%220%200%2095%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%09%3Cpath%20fill%3D%22%23FED331%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C0%20L95%2C0%20C95%2C0%2087%2C5.074%2087%2C10.11%20C87%2C15.073%2095%2C20%2095%2C20%20L0%2C20%20L0%2C0%20Z%22%20id%3D%22Shape%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E") no-repeat;
+  position: absolute;
+  left: -85px;
+  width: 95px;
+  color: black;
+  top: 0;
+  visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  z-index: -1;
+  opacity: 0;
+  font-size: 18px;
+  line-height: 18px;
+  -webkit-transition: opacity .3s ease;
+  -o-transition: opacity .3s ease;
+  transition: opacity .3s ease;
+  padding-right: 10px;
+  padding-bottom: 2px;
 }
 .onepage-pagination li a {
   display: block;
@@ -3031,10 +3053,19 @@ html {
   -webkit-transition: all .3s ease;
   -o-transition: all .3s ease;
   transition: all .3s ease;
+  z-index: 5;
 }
 .onepage-pagination li a.active,
 .onepage-pagination li a:hover {
   border-width: 4px;
+}
+.onepage-pagination li a:hover {
+  -webkit-box-shadow: 0px 3px 6.51px 0.49px rgba(0, 0, 0, 0.64);
+  box-shadow: 0px 3px 6.51px 0.49px rgba(0, 0, 0, 0.64);
+}
+.onepage-pagination li a:hover + span {
+  visibility: visible;
+  opacity: 1;
 }
 .viewing-page-1 .onepage-pagination li a {
   border-color: white;
@@ -3586,8 +3617,7 @@ header {
 }
 @media all and (max-width: 768px) {
   .screenshots__logo {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 12px auto 17px;
     left: 0;
     right: 0;
     display: block;
@@ -3596,15 +3626,21 @@ header {
   }
   .screenshots__description {
     display: block;
+    margin-bottom: 20px;
   }
   .screenshots__badges {
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    margin-top: 18px;
   }
   .screenshots__badges a {
     margin: 0;
+    margin-right: 2px;
+  }
+  .screenshots__badges img {
+    height: 32px;
   }
 }
 .screenshots-slider {
@@ -3612,9 +3648,35 @@ header {
 }
 .screenshots-slider__item {
   width: 980px;
+  height: 400px;
   -webkit-transition: opacity .25s ease;
   -o-transition: opacity .25s ease;
   transition: opacity .25s ease;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+@media (max-width: 1239px) {
+  .screenshots-slider__item {
+    width: 780px;
+  }
+}
+@media (max-width: 991px) {
+  .screenshots-slider__item {
+    width: 580px;
+  }
+}
+@media (max-width: 767px) {
+  .screenshots-slider__item {
+    width: 520px;
+  }
+}
+@media (max-width: 575px) {
+  .screenshots-slider__item {
+    width: 100vw;
+    height: 200px;
+  }
 }
 .advantages {
   display: -webkit-box;
@@ -3781,9 +3843,6 @@ header {
   margin-top: 0;
   margin-bottom: 53px;
 }
-.t {
-  background: url(../img/rm/m-5.png) no-repeat center top red;
-}
 .copyright {
   font-weight: normal;
   font-size: 14px;
@@ -3792,7 +3851,52 @@ header {
   left: 0;
   right: 0;
 }
+.advantages-m {
+  display: none;
+}
 @media all and (max-width: 575px) {
+  .advantages {
+    display: none;
+  }
+  .advantages-m {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 24px;
+  }
+  .advantages-m img {
+    margin-bottom: 24px;
+  }
+  .screenshots {
+    padding-bottom: 6px;
+  }
+  .video-container {
+    top: 50px;
+  }
+  .section-hero {
+    margin-bottom: 125px;
+  }
+  .section-hero__logo {
+    width: 243px;
+    height: 43px;
+  }
+  .section-hero__text {
+    font-size: 18px;
+    margin-top: 0;
+  }
+  .section-hero-arrows {
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 17px;
+  }
+  .section-hero-mouse-icon {
+    display: none;
+  }
+  .about__subtitle {
+    margin: 29px 0 40px;
+  }
   .map {
     position: relative;
     height: 200px;
@@ -3824,6 +3928,22 @@ header {
     position: relative;
     bottom: 0;
     margin-top: 21px;
+  }
+  .job {
+    padding-top: 36px;
+    padding-bottom: 15px;
+  }
+  .vacancy {
+    margin-bottom: 10px;
+  }
+  .vacancy-container {
+    margin-top: 20px;
+  }
+  .vacancy-info {
+    display: none;
+  }
+  .vacancy-advantages {
+    margin-bottom: 16px;
   }
 }
 @-webkit-keyframes fadeIn {

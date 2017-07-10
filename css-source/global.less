@@ -397,8 +397,7 @@ header {
 @media all and (max-width: 768px) {
 	.screenshots {
 		&__logo {
-			margin-left: auto;
-			margin-right: auto;
+			margin: 12px auto 17px;
 			left: 0;
 			right: 0;
 			display: block;
@@ -407,11 +406,17 @@ header {
 		}
 		&__description {
 			display: block;
+			margin-bottom: 20px;
 		}
 		&__badges {
-			justify-content: space-between;
+			justify-content: flex-start;
+			margin-top: 18px;
 			a {
 				margin: 0;
+				margin-right: 2px;
+			}
+			img {
+				height: 32px;
 			}
 		}
 	}
@@ -422,7 +427,26 @@ header {
 	text-align: center;
 	&__item {
 		width: 980px;
+		height: 400px;
 		transition: opacity .25s ease;
+		display: block;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		
+		@media (max-width: 1239px) {
+			width: 780px;
+		}
+		@media (max-width: 991px) {
+			width: 580px;
+		}
+		@media (max-width: 767px) {
+			width: 520px;
+		}
+		@media (max-width: @isMobile) {
+			width: 100vw;
+			height: 200px;
+		}
 	}
 }
 .advantages {
@@ -561,9 +585,9 @@ header {
 		margin-bottom: 53px;
 	}
 }
-.t {
-	background: url(../img/rm/m-5.png) no-repeat center top red;
-}
+//.t {
+//	background: url(../img/rm/m-3.png) no-repeat center top red;
+//}
 .copyright {
 	font-weight: @font-book;
 	font-size: 14px;
@@ -572,7 +596,52 @@ header {
 	left: 0;
 	right: 0;
 }
+
+.advantages-m {
+	display: none;
+}
 @media all and (max-width: @isMobile) {
+	.advantages {
+		display: none;
+	}
+	.advantages-m {
+		display: flex;
+		margin-top: 24px;
+		img {
+			margin-bottom: 24px;
+		}
+	}
+	.screenshots {
+		padding-bottom: 6px;
+	}
+	.video-container {
+		top: 50px;
+	}
+	.section-hero {
+		margin-bottom: 125px;
+		&__logo {
+			width: 243px;
+			height: 43px;
+		}
+		&__text {
+			font-size: 18px;
+			margin-top: 0;
+		}
+	}
+	.section-hero-arrows {
+		left: 0;
+		right: 0;
+		margin: auto;
+		bottom: 17px;
+	}
+	.section-hero-mouse-icon {
+		display: none;
+	}
+	.about {
+		&__subtitle {
+			margin: 29px 0 40px;
+		}
+	}
 	.map {
 		position: relative;
 		height: 200px;
@@ -604,6 +673,22 @@ header {
 		position: relative;
 		bottom: 0;
 		margin-top: 21px;
+	}
+	.job {
+		padding-top: 36px;
+		padding-bottom: 15px;
+	}
+	.vacancy {
+		margin-bottom: 10px;
+	}
+	.vacancy-container {
+		margin-top: 20px;
+	}
+	.vacancy-info {
+		display: none;
+	}
+	.vacancy-advantages {
+		margin-bottom: 16px;
 	}
 }
 @-webkit-keyframes fadeIn {

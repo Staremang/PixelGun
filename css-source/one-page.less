@@ -40,6 +40,27 @@
 .onepage-pagination li {
   padding: 0;
   text-align: center;
+	position: relative;
+	> span {
+//		background: #fed331;
+		background: data-uri("../img/not-used/section-name-back.svg") no-repeat; 
+		position: absolute;
+		left: -85px;
+		width: 95px;
+		color: black;
+		top: 0;
+//		height: 100%;
+		visibility: hidden;
+		transform: translate3d(0,0,0);
+		z-index: -1;
+		opacity: 0;
+		font-size: 18px;
+		line-height: 18px;
+		transition: opacity .3s ease;
+		padding-right: 10px;
+//		padding: 5px 10px;
+		padding-bottom: 2px;
+	}
 }
 .onepage-pagination li a {
 	display: block;
@@ -51,8 +72,16 @@
 	border-radius: 50%;
 	margin: 30px 0;
 	transition: all .3s ease;
+	z-index: 5;
 	&.active, &:hover {
 		border-width: 4px;
+	}
+	&:hover {
+		box-shadow: 0px 3px 6.51px 0.49px rgba(0, 0, 0, 0.64);
+		+ span {
+			visibility: visible;
+			opacity: 1;
+		} 
 	}
 }
 .viewing-page {

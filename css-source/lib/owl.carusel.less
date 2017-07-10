@@ -279,7 +279,7 @@
 	&.owl-carousel {
 //		display: none;
 	//	width: 100%;
-		width: 980px;
+//		width: 980px;
 		max-width: 100%;
 		left: 0;
 		right: 0;
@@ -288,13 +288,15 @@
 		.owl-stage-outer {
 			overflow: visible;
 		}
-		.owl-item {
-			transition: transform .25s ease;
-			&:not([class*="center"]) {
-				transform: scale(320/400);
+		@media (min-width: 576px) {
+			.owl-item {
+				transition: transform .25s ease;
 				background: black;
-				> .screenshots-slider__item {
-					opacity: .5;
+				&:not([class*="center"]) {
+					transform: scale(320/400);
+					> .screenshots-slider__item {
+						opacity: .5;
+					}
 				}
 			}
 		}
