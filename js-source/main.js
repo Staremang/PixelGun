@@ -1,12 +1,8 @@
 var player,
-	videoId = 'CRhJLTA-Xpk',
 	done = false,
 	map,
-	mapApiKey = 'AIzaSyAfunSVDqMzVk4Bb5yplXxK9f2DnWXcWFk',
-	mapCenter = {
-			lat: -34.397,
-			lng: 150.644
-		};
+	geocoder,
+	mapApiKey = 'AIzaSyAfunSVDqMzVk4Bb5yplXxK9f2DnWXcWFk';
 
 var beforePage = function () {},
 	afterPage = function () {};
@@ -67,7 +63,7 @@ function onYouTubeIframeAPIReady() {
 		height: videoHeight,
 //		width: '640',
 		width: videoWidth,
-		videoId: videoId,
+		videoId: videoParam.id,
 		
 		playerVars: { 
 			'autoplay': 1,
@@ -75,7 +71,7 @@ function onYouTubeIframeAPIReady() {
 			'showinfo': 0,
 			'loop': 1,
 			'rel': 0,
-			'playlist': videoId
+			'playlist': videoParam.id
 			
 		},
 		events: {
@@ -159,9 +155,185 @@ function pausePlayVideo() {
   */
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
-		center: mapCenter,
-		zoom: 8
+		center: mapParam.center,
+		zoom: mapParam.zoom,
+		styles: [
+			  {
+				"elementType": "labels.icon",
+				"stylers": [
+				  {
+					"visibility": "off"
+				  }
+				]
+			  },
+			  {
+				"elementType": "labels.text.fill",
+				"stylers": [
+				  {
+					"color": "#616161"
+				  }
+				]
+			  },
+			  {
+				"elementType": "labels.text.stroke",
+				"stylers": [
+				  {
+					"color": "#f5f5f5"
+				  }
+				]
+			  },
+			  {
+				"featureType": "administrative.land_parcel",
+				"elementType": "labels.text.fill",
+				"stylers": [
+				  {
+					"color": "#bdbdbd"
+				  }
+				]
+			  },
+			  {
+				"featureType": "landscape.man_made",
+				"elementType": "geometry.fill",
+				"stylers": [
+				  {
+					"color": "#f2f2f2"
+				  }
+				]
+			  },
+			  {
+				"featureType": "landscape.natural",
+				"elementType": "geometry",
+				"stylers": [
+				  {
+					"color": "#f2f2f2"
+				  }
+				]
+			  },
+			  {
+				"featureType": "poi",
+				"elementType": "geometry",
+				"stylers": [
+				  {
+					"color": "#f2f2f2"
+				  }
+				]
+			  },
+			  {
+				"featureType": "poi",
+				"elementType": "labels.text.fill",
+				"stylers": [
+				  {
+					"color": "#757575"
+				  }
+				]
+			  },
+			  {
+				"featureType": "poi.park",
+				"elementType": "labels.text.fill",
+				"stylers": [
+				  {
+					"color": "#9e9e9e"
+				  }
+				]
+			  },
+			  {
+				"featureType": "road",
+				"elementType": "geometry",
+				"stylers": [
+				  {
+					"color": "#ffffff"
+				  }
+				]
+			  },
+			  {
+				"featureType": "road.arterial",
+				"elementType": "labels.text.fill",
+				"stylers": [
+				  {
+					"color": "#757575"
+				  }
+				]
+			  },
+			  {
+				"featureType": "road.highway",
+				"elementType": "labels.text.fill",
+				"stylers": [
+				  {
+					"color": "#616161"
+				  }
+				]
+			  },
+			  {
+				"featureType": "road.local",
+				"elementType": "labels.text.fill",
+				"stylers": [
+				  {
+					"color": "#9e9e9e"
+				  }
+				]
+			  },
+			  {
+				"featureType": "transit.line",
+				"elementType": "geometry",
+				"stylers": [
+				  {
+					"color": "#e5e5e5"
+				  }
+				]
+			  },
+			  {
+				"featureType": "transit.station",
+				"elementType": "geometry",
+				"stylers": [
+				  {
+					"color": "#eeeeee"
+				  }
+				]
+			  },
+			  {
+				"featureType": "water",
+				"elementType": "geometry",
+				"stylers": [
+				  {
+					"color": "#46bcec"
+				  }
+				]
+			  },
+			  {
+				"featureType": "water",
+				"elementType": "labels.text.fill",
+				"stylers": [
+				  {
+					"color": "#9e9e9e"
+				  }
+				]
+			  }
+			],
+		mapTypeControl: false,
+		scrollwheel: false,
+		streetViewControl: false,
+		zoomControlOptions: {
+			position: google.maps.ControlPosition.LEFT_BOTTOM
+		}
 	});
+    geocoder = new google.maps.Geocoder();
+	geocoder.geocode(
+		{
+			'address': mapParam.address
+		},
+		function(results, status) {
+			if (status == 'OK') {
+				map.setCenter(results[0].geometry.location);
+				var marker = new google.maps.Marker({
+					map: map,
+					position: results[0].geometry.location,
+					icon: mapParam.markerUrl
+				});
+			} else {
+				console.error('Address not found', mapParam.address, status);
+			}
+		}
+	);
 }
 ready(function () {
 	var firstScriptTag = document.getElementsByTagName('script')[0],
@@ -183,15 +355,52 @@ ready(function () {
 	document.querySelector('.header-display__btn').addEventListener('click', function () {
 		openCloseMenu();
 	})
+//	document.querySelector('.address__value').innerHTML = mapParam.address;
 })
 
 function openCloseMenu () {
 	document.querySelector('.header-container').classList.toggle('view')	
 }
 
+function setPopupHtml(el) {
+	return '<div class="vacancy-popup">\
+				<button class="vacancy-popup__btn"></button>\
+				<div class="vacancy-popup-head">\
+					<div class="vacancy-popup-head__icon">' + el.find('.vacancy__icon').html() + '</div>\
+					<div class="vacancy-popup-head__name">' + el.find('.vacancy__name').html() + '</div>\
+					<div class="vacancy-popup-head__info">' + el.find('.vacancy__info').html() + '</div>\
+					<div class="vacancy-popup-head__employment">' + el.find('.vacancy__employment').html() + '</div>\
+					<div class="vacancy-popup-head__city">' + el.find('.vacancy__city').html() + '</div>\
+					<a href="#" class="vacancy-popup-head__btn">откликнуться</a>\
+				</div>\
+				<div class="vacancy-popup-info">' + el.find('.vacancy__description').html() + '</div>\
+			</div>'
+}
+
 $(document).ready(function () {
-	
-	if (!isMobile()) {
+	$('.vacancy').click(function (e) {
+		e.preventDefault();
+		var popup = document.createElement('div'),
+			firstScriptTag = document.getElementsByTagName('script')[0];
+		popup.classList.add('popup-container');
+		popup.innerHTML = '<div class="popup-container__overlay"></div>' + setPopupHtml($(this));
+		
+		firstScriptTag = document.getElementsByTagName('script')[0];
+		document.body.insertBefore(popup, document.body.children[0]);
+		document.body.style.overflow = 'hidden';
+		popup.classList.add('animated');
+		popup.classList.add('fadeIn');
+		$('.vacancy-popup__btn').click(function () {
+			popup.classList.remove('fadeIn');
+			popup.classList.add('fadeOut');
+			setTimeout(function () {
+				document.body.removeChild(popup);
+				document.body.style.overflow = '';
+			}, 1000)
+//			console.log('popup close');
+		})
+	})
+	if (document.documentElement.clientWidth > 768) {
 		$('body').addClass('onepage');
 		$(".wrapper").onepage_scroll({
 			sectionContainer: "section",     // sectionContainer accepts any kind of selector in case you don't want to use section
@@ -244,6 +453,9 @@ $(document).ready(function () {
 //		navText: [ '<img src="img/arrow-left.svg" alt="Влево">', '<img src="img/arrow-right.svg" alt="Вправо">' ],
 		items: 		1,
 		center: 	true,
+		autoplay:	true,
+		autoplayTimeout:	5000,
+		autoplayHoverPause:	true,
 		responsive: {
 			0: {
 				margin: 0
