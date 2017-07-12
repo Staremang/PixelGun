@@ -525,6 +525,7 @@ $(document).ready(function () {
 	} else {
 		$('.header-navigation__item').click(function () {
 			openCloseMenu();
+			$('html, body').animate({scrollTop: $($(this).attr('href')).offset().top - 50}, 'slow');
 		})
 	}
 		
