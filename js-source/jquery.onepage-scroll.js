@@ -251,8 +251,10 @@
           if (!$("body").hasClass("disabled-onepage-scroll")) event.preventDefault();
           el.moveDown();
         });
-
-        $(document).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
+		  
+//        $(document).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
+        $('.onepage-wrapper').bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
+			
           event.preventDefault();
           var delta = event.originalEvent.wheelDelta || -event.originalEvent.detail;
           init_scroll(event, delta);
@@ -371,7 +373,8 @@
     }
 
 
-    $(document).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
+//    $(document).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
+    $('.onepage-wrapper').bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(event) {
       event.preventDefault();
       var delta = event.originalEvent.wheelDelta || -event.originalEvent.detail;
       if(!$("body").hasClass("disabled-onepage-scroll")) init_scroll(event, delta);

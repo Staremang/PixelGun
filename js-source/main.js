@@ -335,6 +335,102 @@ function initMap() {
 		}
 	);
 }
+
+
+
+NodeList.prototype.popup = function (options) {
+	var defaults = {
+			animationTime: 1000,
+			animationIn: 'fadeIn',
+			animationOut: 'fadeOut',
+		},
+		settings = extend({}, defaults, options);
+	
+	if (this.length !== 0) {
+		for (var i = 0; i < this.length; i++) {
+			setPupup(this[i]);
+		}
+	}
+	
+	function extend (out) {
+		out = out || {};
+		
+		for (var i = 1; i < arguments.length; i++) {
+			if (!arguments[i])
+				continue;
+			
+			for (var key in arguments[i]) {
+				if (arguments[i].hasOwnProperty(key))
+					out[key] = arguments[i][key];
+			}
+		}
+		
+		return out;
+	};
+	
+	function setPupup (el) {
+		if (typeof el !== 'undefined') {
+			el.addEventListener('click', function (e) {
+				e.preventDefault();
+
+				var popup = document.createElement('div');
+
+
+				popup.classList.add('popup-container');
+
+				if (el.hasAttribute('data-gallery')) {
+					popup.innerHTML = setGalleryHtml(el);
+				} else if (el.hasAttribute('data-vacancy')) {
+					popup.innerHTML = setPopupHtml(el);
+				}
+
+				document.body.insertBefore(popup, document.body.children[0]);
+				document.body.style.overflow = 'hidden';
+				popup.classList.add('animated');
+				popup.classList.add(settings.animationIn);
+
+				if (popup.children[0].clientHeight > document.documentElement.clientHeight - 40) {
+					popup.style.display = 'block';
+				}
+				popup.addEventListener('click', function (e) {
+					if (e.target == popup || e.target.hasAttribute('data-popup-close')) {
+						e.preventDefault();
+						popup.classList.remove(settings.animationIn);
+						popup.classList.add(settings.animationOut);
+						setTimeout(function () {
+							document.body.removeChild(popup);
+							document.body.style.overflow = '';
+						}, settings.animationTime)
+					}
+				});
+			})
+		}
+	};
+	
+	function setPopupHtml (el) {
+		return '<div class="vacancy-popup">\
+					<button data-popup-close class="vacancy-popup__btn"></button>\
+					<div class="vacancy-popup-head">\
+						<div class="vacancy-popup-head__icon">' + el.querySelectorAll('.vacancy__icon')[0].innerHTML + '</div>\
+						<div class="vacancy-popup-head__name">' + el.querySelectorAll('.vacancy__name')[0].innerHTML + '</div>\
+						<div class="vacancy-popup-head__info">' + el.querySelectorAll('.vacancy__info')[0].innerHTML + '</div>\
+						<div class="vacancy-popup-head__employment">' + el.querySelectorAll('.vacancy__employment')[0].innerHTML + '</div>\
+						<div class="vacancy-popup-head__city">' + el.querySelectorAll('.vacancy__city')[0].innerHTML + '</div>\
+						<a href="#" class="vacancy-popup-head__btn">откликнуться</a>\
+					</div>\
+					<div class="vacancy-popup-info">' + el.querySelectorAll('.vacancy__description')[0].innerHTML + '</div>\
+				</div>'
+	};
+	
+	function setGalleryHtml (el) {
+		return '<div class="img-popup">\
+					<button data-popup-close class="img-popup__btn"></button>\
+					<img src="' + el.getAttribute('href') + '" alt="">\
+				</div>';
+	};
+	
+	return this;
+ }
 ready(function () {
 	var firstScriptTag = document.getElementsByTagName('script')[0],
 		tagGoogleMaps = document.createElement('script');
@@ -356,50 +452,36 @@ ready(function () {
 		openCloseMenu();
 	})
 //	document.querySelector('.address__value').innerHTML = mapParam.address;
+	
+//	if (!isMobile()) {
+		document.querySelectorAll('a[data-gallery]').popup();
+//	}
+	document.querySelectorAll('.vacancy').popup({
+		animationTime: 1000,
+		animationIn: 'fadeIn',
+		animationOut: 'fadeOut',
+	});
 })
 
 function openCloseMenu () {
 	document.querySelector('.header-container').classList.toggle('view')	
 }
-
-function setPopupHtml(el) {
-	return '<div class="vacancy-popup">\
-				<button class="vacancy-popup__btn"></button>\
-				<div class="vacancy-popup-head">\
-					<div class="vacancy-popup-head__icon">' + el.find('.vacancy__icon').html() + '</div>\
-					<div class="vacancy-popup-head__name">' + el.find('.vacancy__name').html() + '</div>\
-					<div class="vacancy-popup-head__info">' + el.find('.vacancy__info').html() + '</div>\
-					<div class="vacancy-popup-head__employment">' + el.find('.vacancy__employment').html() + '</div>\
-					<div class="vacancy-popup-head__city">' + el.find('.vacancy__city').html() + '</div>\
-					<a href="#" class="vacancy-popup-head__btn">откликнуться</a>\
-				</div>\
-				<div class="vacancy-popup-info">' + el.find('.vacancy__description').html() + '</div>\
-			</div>'
-}
-
 $(document).ready(function () {
-	$('.vacancy').click(function (e) {
-		e.preventDefault();
-		var popup = document.createElement('div'),
-			firstScriptTag = document.getElementsByTagName('script')[0];
-		popup.classList.add('popup-container');
-		popup.innerHTML = '<div class="popup-container__overlay"></div>' + setPopupHtml($(this));
-		
-		firstScriptTag = document.getElementsByTagName('script')[0];
-		document.body.insertBefore(popup, document.body.children[0]);
-		document.body.style.overflow = 'hidden';
-		popup.classList.add('animated');
-		popup.classList.add('fadeIn');
-		$('.vacancy-popup__btn').click(function () {
-			popup.classList.remove('fadeIn');
-			popup.classList.add('fadeOut');
-			setTimeout(function () {
-				document.body.removeChild(popup);
-				document.body.style.overflow = '';
-			}, 1000)
-//			console.log('popup close');
-		})
+	var s = '';
+	for (var i = 1; i <= $('[data-tab-link]').length; i++) {
+		s += '<li class="tab-list-mobile__item" data-tab-link="' + i + '"></li>';
+	}
+	document.querySelector('.tab-list-mobile').innerHTML = s;
+	$('[data-tab]').hide();
+	$('[data-tab="1"]').show();
+	$('[data-tab-link="1"]').addClass('active');
+	$('[data-tab-link]').click(function () {
+		$('.active[data-tab-link]').removeClass('active');
+		$(this).addClass('active');
+		$('[data-tab]').hide();
+		$('[data-tab="' + $(this).attr('data-tab-link') + '"]').show()
 	})
+	
 	if (document.documentElement.clientWidth > 768) {
 		$('body').addClass('onepage');
 		$(".wrapper").onepage_scroll({

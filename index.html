@@ -23,10 +23,10 @@
 			</div>
 			<nav class="header-navigation">
 				<button class="header-navigation__btn"></button>
-				<a href="#company" class="header-navigation__item">company</a>
-				<a href="#games" class="header-navigation__item">games</a>
-				<a href="#jobs" class="header-navigation__item">jobs</a>
-				<a href="#contact" class="header-navigation__item">contact</a>
+				<a href="#company" data-anchor="2" class="header-navigation__item">company</a>
+				<a href="#games" data-anchor="3" class="header-navigation__item">games</a>
+				<a href="#jobs" data-anchor="4" class="header-navigation__item">jobs</a>
+				<a href="#contact" data-anchor="5" class="header-navigation__item">contact</a>
 			</nav>
 		</div>
 	</header>
@@ -47,6 +47,7 @@
 			<img src="img/logo.png" alt="" class="section-hero__logo">
 			<h2 class="section-hero__text">Top Mobile Shooter</h2>
 		</div>
+<!--
 		<div class="section-hero-arrows">
 			<a href="" class="section-hero-arrows__left">
 				<svg width="14px" height="12px" viewBox="0 0 14 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -65,6 +66,7 @@
 				</svg>
 			</a>
 		</div>
+-->
 		<svg class="section-hero-mouse-icon" width="15px" height="35px" viewBox="0 0 215 488" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 			<g id="Page-1" stroke="none" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd">
 				<path d="M146.7621,420.1121 L107.5,459.3741 L68.2379,420.1121 C63.4621,415.3441 56.3379,415.3441 51.5621,420.1121 C46.7941,424.8879 46.7941,432.0121 51.5621,436.7879 L99.1621,484.3879 C101.55,486.7759 104.525,487.95 107.5,487.95 C110.475,487.95 113.45,486.7759 115.8379,484.3879 L163.4379,436.7879 C168.2059,432.0121 168.2059,424.8879 163.4379,420.1121 C158.6621,415.3759 151.5379,415.3759 146.7621,420.1121 Z" id="Fill-1"></path>
@@ -85,18 +87,18 @@
 					<p class="about__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ante sed arcu vulputate laoreet ut quis sem. Integer cursus auctor velit vitae lacinia. Praesent finibus massa a viverra sodales. Suspendisse malesuada aliquet velit, at faucibus metus mollis vel.</p>
 					
 					<div class="about-slider">
-						<div class="about-slider__img">
+						<a data-gallery href="img/full-1.jpg" class="about-slider__img">
 							<img src="img/1.jpg" alt="">
-						</div>
-						<div class="about-slider__img">
+						</a>
+						<a data-gallery href="img/full-2.jpg" class="about-slider__img">
 							<img src="img/2.jpg" alt="">
-						</div>
-						<div class="about-slider__img">
+						</a>
+						<a data-gallery href="img/full-3.jpg" class="about-slider__img">
 							<img src="img/3.jpg" alt="">
-						</div>
-						<div class="about-slider__img">
+						</a>
+						<a data-gallery href="img/full-4.jpg" class="about-slider__img">
 							<img src="img/4.jpg" alt="">
-						</div>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -106,9 +108,55 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10 offset-md-1">
-					<img src="img/logo.png" alt="" class="screenshots__logo">
-					<div class="screenshots__description">
-						<div class="screenshots__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ante sed arcu vulputate laoreet ut quis sem. Integer cursus auctor velit vitae lacinia. Praesent finibus massa a viverra sodales. Suspendisse malesuada aliquet velit, at faucibus metus mollis vel. </div>
+					<div class="screenshots__header">
+						<ul class="tab-list-mobile"></ul>
+						<div class="">
+							<img src="img/logo.png" alt="" class="screenshots__logo" data-tab="1">
+							<img src="img/logo.png" alt="" class="screenshots__logo" data-tab="2">
+							<img src="img/logo.png" alt="" class="screenshots__logo" data-tab="3">
+						</div>
+						<div class="tab-list">
+							<div class="tab-list__item" data-tab-link="1">
+								<img src="img/logo.png" width="83px" height="14px" alt="">
+							</div>
+							<div class="tab-list__item" data-tab-link="2">
+								<img src="img/logo.png" width="83px" height="14px" alt="">
+							</div>
+							<div class="tab-list__item" data-tab-link="3">
+								<img src="img/logo.png" width="83px" height="24px" alt="">
+							</div>
+						</div>
+					</div>
+					<div class="screenshots__description" data-tab="1">
+						<div class="screenshots__text">1) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ante sed arcu vulputate laoreet ut quis sem. Integer cursus auctor velit vitae lacinia. Praesent finibus massa a viverra sodales. Suspendisse malesuada aliquet velit, at faucibus metus mollis vel. </div>
+						<div class="screenshots__badges">
+							<a href="#">
+								<img src="img/App-Store-Badge.png" alt="">
+							</a>
+							<a href="#">
+								<img src="img/Google-Play-Badge.png" alt="">
+							</a>
+							<a href="#">
+								<img src="img/amazon-store-badge.png" alt="">
+							</a>
+						</div>
+					</div>
+					<div class="screenshots__description" data-tab="2">
+						<div class="screenshots__text">2) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ante sed arcu vulputate laoreet ut quis sem. Integer cursus auctor velit vitae lacinia. Praesent finibus massa a viverra sodales. Suspendisse malesuada aliquet velit, at faucibus metus mollis vel. </div>
+						<div class="screenshots__badges">
+							<a href="#">
+								<img src="img/App-Store-Badge.png" alt="">
+							</a>
+							<a href="#">
+								<img src="img/Google-Play-Badge.png" alt="">
+							</a>
+							<a href="#">
+								<img src="img/amazon-store-badge.png" alt="">
+							</a>
+						</div>
+					</div>
+					<div class="screenshots__description" data-tab="3">
+						<div class="screenshots__text">3) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ante sed arcu vulputate laoreet ut quis sem. Integer cursus auctor velit vitae lacinia. Praesent finibus massa a viverra sodales. Suspendisse malesuada aliquet velit, at faucibus metus mollis vel. </div>
 						<div class="screenshots__badges">
 							<a href="#">
 								<img src="img/App-Store-Badge.png" alt="">
@@ -124,41 +172,111 @@
 				</div>
 			</div>
 		</div>
-		<div class="screenshots-slider owl-carousel">
-			<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
-			<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
-			<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
-			<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
-<!--
-			<img src="img/screenshot-1.jpg" class="screenshots-slider__item" alt="">
-			<img src="img/screenshot-1.jpg" class="screenshots-slider__item" alt="">
-			<img src="img/screenshot-1.jpg" class="screenshots-slider__item" alt="">
-			<img src="img/screenshot-1.jpg" class="screenshots-slider__item" alt="">
--->
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 offset-md-1 advantages">
-					<div class="advantages__item">
-						<img src="img/advantages-1.png" width="227px" alt="">
+		<div data-tab="1">
+			<div class="screenshots-slider owl-carousel">
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+	<!--
+				<img src="img/screenshot-1.jpg" class="screenshots-slider__item" alt="">
+				<img src="img/screenshot-1.jpg" class="screenshots-slider__item" alt="">
+				<img src="img/screenshot-1.jpg" class="screenshots-slider__item" alt="">
+				<img src="img/screenshot-1.jpg" class="screenshots-slider__item" alt="">
+	-->
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1 advantages">
+						<div class="advantages__item">
+							<img src="img/advantages-1.png" width="239px" alt="">
+						</div>
+						<div class="advantages__item">
+							<img src="img/advantages-2.png" width="169px" alt="">
+						</div>
+						<div class="advantages__item">
+							<img src="img/advantages-3.png" width="271px" alt="">
+						</div>
 					</div>
-					<div class="advantages__item">
-						<img src="img/advantages-2.png" width="146px" alt="">
+				</div>
+				<div class="row advantages-m">
+					<div class="col-6">
+						<img src="img/advantages-1-m.png" width="95px" alt="" style="margin-left: 6px;">
 					</div>
-					<div class="advantages__item">
-						<img src="img/advantages-3.png" width="255px" alt="">
+					<div class="col-6">
+						<img src="img/advantages-2-m.png" width="109px" alt="">
+					</div>
+					<div class="col-12">
+						<img src="img/advantages-3-m.png" width="187px" alt="">
 					</div>
 				</div>
 			</div>
-			<div class="row advantages-m">
-				<div class="col-6">
-					<img src="img/advantages-1-m.png" width="95px" alt="" style="margin-left: 6px;">
+		</div>
+		<div data-tab="2">
+			<div class="screenshots-slider owl-carousel">
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1 advantages">
+						<div class="advantages__item">
+							<img src="img/advantages-1.png" width="239px" alt="">
+						</div>
+						<div class="advantages__item">
+							<img src="img/advantages-2.png" width="169px" alt="">
+						</div>
+						<div class="advantages__item">
+							<img src="img/advantages-3.png" width="271px" alt="">
+						</div>
+					</div>
 				</div>
-				<div class="col-6">
-					<img src="img/advantages-2-m.png" width="109px" alt="">
+				<div class="row advantages-m">
+					<div class="col-6">
+						<img src="img/advantages-1-m.png" width="95px" alt="" style="margin-left: 6px;">
+					</div>
+					<div class="col-6">
+						<img src="img/advantages-2-m.png" width="109px" alt="">
+					</div>
+					<div class="col-12">
+						<img src="img/advantages-3-m.png" width="187px" alt="">
+					</div>
 				</div>
-				<div class="col-12">
-					<img src="img/advantages-3-m.png" width="187px" alt="">
+			</div>
+		</div>
+		<div data-tab="3">
+			<div class="screenshots-slider owl-carousel">
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+				<div class="screenshots-slider__item" style="background-image: url(img/screenshot-1.jpg)"></div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1 advantages">
+						<div class="advantages__item">
+							<img src="img/advantages-1.png" width="239px" alt="">
+						</div>
+						<div class="advantages__item">
+							<img src="img/advantages-2.png" width="169px" alt="">
+						</div>
+						<div class="advantages__item">
+							<img src="img/advantages-3.png" width="271px" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="row advantages-m">
+					<div class="col-6">
+						<img src="img/advantages-1-m.png" width="95px" alt="" style="margin-left: 6px;">
+					</div>
+					<div class="col-6">
+						<img src="img/advantages-2-m.png" width="109px" alt="">
+					</div>
+					<div class="col-12">
+						<img src="img/advantages-3-m.png" width="187px" alt="">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -222,7 +340,7 @@
 			
 			<div class="row vacancy-container">
 				<div class="col-12 col-sm-6 col-lg-3">
-					<a href="#" class="vacancy">
+					<a href="#" data-vacancy class="vacancy">
 						<div class="vacancy__overlay" style="background-image: url(img/vacancy-1.jpg)"></div>
 						<div class="vacancy__icon">
 							<svg width="46px" height="46px" viewBox="0 0 46 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -269,7 +387,7 @@
 					</a>
 				</div>
 				<div class="col-12 col-sm-6 col-lg-3">
-					<a href="#" class="vacancy">
+					<a href="#" data-vacancy class="vacancy">
 						<div class="vacancy__overlay" style="background-image: url(img/vacancy-2.jpg)"></div>
 						<div class="vacancy__icon">
 							<svg width="51px" height="40px" viewBox="0 0 51 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -316,7 +434,7 @@
 					</a>
 				</div>
 				<div class="col-12 col-sm-6 col-lg-3">
-					<a href="#" class="vacancy">
+					<a href="#" data-vacancy class="vacancy">
 						<div class="vacancy__overlay" style="background-image: url(img/vacancy-2.jpg)"></div>
 						<div class="vacancy__icon">
 							<svg width="51px" height="40px" viewBox="0 0 51 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -363,7 +481,7 @@
 					</a>
 				</div>
 				<div class="col-12 col-sm-6 col-lg-3">
-					<a href="#" class="vacancy">
+					<a href="#" data-vacancy class="vacancy">
 						<div class="vacancy__overlay" style="background-image: url(img/vacancy-1.jpg)"></div>
 						<div class="vacancy__icon">
 							<svg width="46px" height="46px" viewBox="0 0 46 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

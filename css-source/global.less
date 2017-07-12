@@ -75,8 +75,8 @@ header {
 	margin: auto;
 }
 .header-logo {
-	width: 123px;
-	height: 35px;
+	width: 120px;
+	height: 38px;
 }
 .header-display {
 	display: inline-flex;
@@ -97,6 +97,58 @@ header {
 		color: black;
 		
 		margin: 0 118/2px;
+		position: relative;
+		transform: translateZ(0);
+
+		&:before {
+			transform: translateZ(0);
+			z-index: -1;
+			position: absolute;
+			left: 0;
+			top: 5px;
+			height: 12px;
+			width: 100%;
+			display: block;
+		}
+		&:hover {
+			color: #343434;
+			&:before {
+				content: '';
+				background: @color-blue;
+			}
+		}
+		&[data-anchor="2"] {
+			.viewing-page-2 & {
+				&:before {
+					content: '';
+					background: #f9e88e;
+				}
+			}
+		}
+		&[data-anchor="3"] {
+			.viewing-page-3 & {
+				&:before {
+					content: '';
+					background: #f9e88e;
+				}
+			}
+		}
+		&[data-anchor="4"] {
+			.viewing-page-4 & {
+				&:before {
+					content: '';
+					background: #f9e88e;
+				}
+			}
+		}
+		&[data-anchor="5"] {
+			.viewing-page-5 & {
+				&:before {
+					content: '';
+					background: #f9e88e;
+				}
+			}
+		}
 	}
 	&__btn {
 		display: none;
@@ -105,8 +157,8 @@ header {
 @media all and (max-width: @isTablet) {
 	
 	.header-logo {
-		width: 104px;
-		height: 30px;
+		width: 88px;
+		height: 28px;
 	}
 	.header-container {
 		flex-direction: column;
@@ -255,7 +307,7 @@ header {
 	top: 0;
 	left: 0;
 	position: absolute;
-	background: red;
+//	background: red;
 	overflow: hidden;
 }
 .video {
@@ -312,19 +364,18 @@ header {
 	
 	cursor: pointer;
 }
-.section-hero-arrows {
-	transform: translateZ(0);
-	position: absolute;
-	left: 87px;
-	bottom: 33px;
-	> a {
-		text-decoration: none;
-	}
-	&__right {
-		margin-left: 14px;
-	}
-}
-
+//.section-hero-arrows {
+//	transform: translateZ(0);
+//	position: absolute;
+//	left: 87px;
+//	bottom: 33px;
+//	> a {
+//		text-decoration: none;
+//	}
+//	&__right {
+//		margin-left: 14px;
+//	}
+//}
 
 .about {
 	&__title {
@@ -348,6 +399,18 @@ header {
 		flex: 0 0 50%;
 		max-width: 50%;
 		padding: 0 10px;
+		
+		text-decoration: none;
+		cursor: pointer;
+//		> img {
+//			display: block;
+//		}
+		&:hover {
+			> img {
+//				border: 2px solid @color-blue;
+				outline: 2px solid @color-blue;
+			}
+		}
 	}
 }
 @media all and (max-width: @isMobile) {
@@ -359,6 +422,60 @@ header {
 			padding: 0;
 			width: 100%;
 			max-width: 100%;
+			
+			&:hover {
+				> img {
+	//				border: 2px solid @color-blue;
+					outline: none;
+				}
+			}
+		}
+	}
+}
+.tab-list {
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+	&__item {
+		margin: 0 10px;
+		position: relative;
+		z-index: 0;
+		display: inline-flex;
+		cursor: pointer;
+		&.active, &:hover {
+
+			&:before {
+				content: '';
+				transform: translateZ(0);
+				z-index: -1;
+				position: absolute;
+				left: -3px;
+				right: -3px;
+				bottom: 0;
+				height: 6px;
+				display: block;
+				background: #ffe875;
+			}
+		}
+	}
+}
+
+.tab-list-mobile {
+	display: none;
+	list-style: none;
+	justify-content: center;
+	padding-left: 0;
+	&__item {
+		height: 12px;
+		width: 12px;
+		border: 2px solid white;
+		opacity: .7;
+		display: block;
+		border-radius: 50%;
+		margin: 0 9px;
+		&.active {
+			opacity: 1;
+			border-color: #ffe400;
 		}
 	}
 }
@@ -366,12 +483,15 @@ header {
 	background: url(../img/screenshots-back.jpg) center no-repeat;
 	background-size: cover;
 	text-align: left;
+	&__header {
+		display: flex;
+		margin: 25px 0;
+//		margin-bottom: 25px;
+//		margin-top: 25px;
+	}
 	&__logo {
-		margin-left: -11px;
-		margin-bottom: 25px;
-		margin-top: 25px;
-		width: 292px;
-		height: 52px;
+		max-width: 292px;
+		max-height: 52px;
 	}
 	&__description {
 		display: flex;
@@ -398,14 +518,23 @@ header {
 	}
 }
 @media all and (max-width: @isTablet) {
+	.tab-list {
+		display: none;
+	}
+	
+	.tab-list-mobile {
+		display: flex;
+	}
 	.screenshots {
-		&__logo {
-			margin: 12px auto 17px;
-			left: 0;
-			right: 0;
+		&__header {
+			margin: 12px 0 17px;
+			text-align: center;
 			display: block;
-			width: 192px;
-			height: 33px;
+		}
+		&__logo {
+//			display: block;
+			max-width: 192px;
+			max-height: 33px;
 		}
 		&__description {
 			display: block;
@@ -692,6 +821,7 @@ header {
 }
 .popup-container {
 	position: fixed;
+	overflow: scroll;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -700,15 +830,67 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	&__overlay {
-		background: black;
-		opacity: .5;
+	background: rgba(0, 0, 0, 0.5);
+//	&__overlay {
+//		background: black;
+//		opacity: .5;
+//		position: absolute;
+//		left: 0;
+//		top: 0;
+//		width: 100%;
+//		height: 100%;
+//		transform: translateZ(0);
+//	}
+}
+.img-popup {
+	transform: translateZ(0);
+	background: white;
+	border: 2px solid @color-blue;
+	max-width: 980px;
+//	max-width: 100%;
+//	max-height: 100%;
+//	display: flex;
+//	align-items: stretch;
+	margin: 20px auto;
+	left: 0;
+	right: 0;
+	img {
+		max-width: 90vw;
+		max-height: calc(~"90vh - 60px");
+	}
+	&__btn {
 		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		transform: translateZ(0);
+		display: block;
+		right: 0;
+		top: -38px;
+		background: none;
+		border: 0;
+		box-shadow: none;
+		padding: 0;
+		width: 14px;
+		height: 14px;
+		cursor: pointer;
+		outline: none;
+		z-index: 16;
+		&:before, &:after {
+			content: '';
+			height: 2px;
+			width: 17px;
+			display: block;
+			position: absolute;
+			background: white;
+		}
+		&:before {
+			transform: rotate(-45deg);
+		}
+		&:after {
+			transform: rotate(45deg);
+		}
+		&:hover {
+			&:before, &:after {
+				background: #59b9df;
+			}
+		}
 	}
 }
 .vacancy-popup {
@@ -719,7 +901,9 @@ header {
 	max-width: 100%;
 	display: flex;
 	align-items: stretch;
-	margin: 20px 0;
+	margin: 20px auto;
+	left: 0;
+	right: 0;
 	
 	&__btn {
 		position: absolute;
@@ -817,10 +1001,9 @@ header {
 	}
 }
 @media all and (max-width: @isTablet) {
-	.popup-container {
-		overflow: scroll;
-		display: block;
-	}
+//	.popup-container {
+//		display: block;
+//	}
 	.vacancy-popup {
 		display: block;
 		&__btn {
@@ -926,12 +1109,12 @@ header {
 			margin-top: 0;
 		}
 	}
-	.section-hero-arrows {
-		left: 0;
-		right: 0;
-		margin: auto;
-		bottom: 17px;
-	}
+//	.section-hero-arrows {
+//		left: 0;
+//		right: 0;
+//		margin: auto;
+//		bottom: 17px;
+//	}
 	.section-hero-mouse-icon {
 		display: none;
 	}
