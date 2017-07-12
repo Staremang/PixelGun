@@ -1,10 +1,12 @@
-var player,
+'use strict';
+let player,
 	done = false,
 	map,
-	geocoder,
-	mapApiKey = 'AIzaSyAfunSVDqMzVk4Bb5yplXxK9f2DnWXcWFk';
+	geocoder;
 
-var beforePage = function () {},
+const mapApiKey = 'AIzaSyAfunSVDqMzVk4Bb5yplXxK9f2DnWXcWFk';
+
+let beforePage = function () {},
 	afterPage = function () {};
 
 
@@ -18,8 +20,8 @@ function isMobile () {
 function fadeOut (el) {
 	el.style.opacity = 1;
 
-	var last = +new Date();
-	var tick = function() {
+	let last = +new Date();
+	let tick = () => {
 		el.style.opacity = +el.style.opacity - (new Date() - last) / 400;
 		last = +new Date();
 
@@ -43,10 +45,10 @@ function ready(fn) {
  		YouTube Video
   */
 function onYouTubeIframeAPIReady() {
-	var videoHeight = 0,
+	let videoHeight = 0,
 		videoWidth = 0;
 	
-	var height = document.documentElement.clientHeight,
+	let height = document.documentElement.clientHeight,
 		width = document.documentElement.clientWidth,
 		originalRatio = 16/9;
 	
@@ -98,10 +100,10 @@ function onPlayerReady(event) {
 }
 
 function videoResize () {
-	var height = document.documentElement.clientHeight,
+	let height = document.documentElement.clientHeight,
 		width = document.documentElement.clientWidth,
 		originalRatio = 16/9;
-	var video = document.getElementById('video');
+	let video = document.getElementById('video');
 	
 	if (width / height >= originalRatio) {
 		player.setSize(width, width / originalRatio);
@@ -321,13 +323,13 @@ function initMap() {
 		{
 			'address': mapParam.address
 		},
-		function(results, status) {
+		function (results, status) {
 			if (status == 'OK') {
 				map.setCenter(results[0].geometry.location);
-				var marker = new google.maps.Marker({
-					map: map,
-					position: results[0].geometry.location,
-					icon: mapParam.markerUrl
+				let marker = new google.maps.Marker({
+					map: 		map,
+					position: 	results[0].geometry.location,
+					icon: 		mapParam.markerUrl
 				});
 			} else {
 				console.error('Address not found', mapParam.address, status);
@@ -339,15 +341,15 @@ function initMap() {
 
 
 NodeList.prototype.popup = function (options) {
-	var defaults = {
-			animationTime: 1000,
-			animationIn: 'fadeIn',
-			animationOut: 'fadeOut',
+	let defaults = {
+			animationTime: 	1000,
+			animationIn: 	'fadeIn',
+			animationOut: 	'fadeOut',
 		},
 		settings = extend({}, defaults, options);
 	
 	if (this.length !== 0) {
-		for (var i = 0; i < this.length; i++) {
+		for (let i = 0; i < this.length; i++) {
 			setPupup(this[i]);
 		}
 	}
@@ -355,11 +357,11 @@ NodeList.prototype.popup = function (options) {
 	function extend (out) {
 		out = out || {};
 		
-		for (var i = 1; i < arguments.length; i++) {
+		for (let i = 1; i < arguments.length; i++) {
 			if (!arguments[i])
 				continue;
 			
-			for (var key in arguments[i]) {
+			for (let key in arguments[i]) {
 				if (arguments[i].hasOwnProperty(key))
 					out[key] = arguments[i][key];
 			}
@@ -373,7 +375,7 @@ NodeList.prototype.popup = function (options) {
 			el.addEventListener('click', function (e) {
 				e.preventDefault();
 
-				var popup = document.createElement('div');
+				let popup = document.createElement('div');
 
 
 				popup.classList.add('popup-container');
@@ -382,11 +384,13 @@ NodeList.prototype.popup = function (options) {
 					popup.innerHTML = setGalleryHtml(el);
 				} else if (el.hasAttribute('data-vacancy')) {
 					popup.innerHTML = setPopupHtml(el);
-				}
+				};
 
 				document.body.insertBefore(popup, document.body.children[0]);
 				document.body.style.overflow = 'hidden';
+				
 				popup.classList.add('animated');
+				popup.style.animationDuration = settings.animationTime + 'ms';
 				popup.classList.add(settings.animationIn);
 
 				if (popup.children[0].clientHeight > document.documentElement.clientHeight - 40) {
@@ -395,16 +399,18 @@ NodeList.prototype.popup = function (options) {
 				popup.addEventListener('click', function (e) {
 					if (e.target == popup || e.target.hasAttribute('data-popup-close')) {
 						e.preventDefault();
+						
 						popup.classList.remove(settings.animationIn);
 						popup.classList.add(settings.animationOut);
+						
 						setTimeout(function () {
 							document.body.removeChild(popup);
 							document.body.style.overflow = '';
-						}, settings.animationTime)
-					}
+						}, settings.animationTime);
+					};
 				});
-			})
-		}
+			});
+		};
 	};
 	
 	function setPopupHtml (el) {
@@ -419,7 +425,7 @@ NodeList.prototype.popup = function (options) {
 						<a href="#" class="vacancy-popup-head__btn">откликнуться</a>\
 					</div>\
 					<div class="vacancy-popup-info">' + el.querySelectorAll('.vacancy__description')[0].innerHTML + '</div>\
-				</div>'
+				</div>';
 	};
 	
 	function setGalleryHtml (el) {
@@ -432,25 +438,25 @@ NodeList.prototype.popup = function (options) {
 	return this;
  }
 ready(function () {
-	var firstScriptTag = document.getElementsByTagName('script')[0],
+	let firstScriptTag = document.getElementsByTagName('script')[0],
 		tagGoogleMaps = document.createElement('script');
 	
 	tagGoogleMaps.src = "https://maps.googleapis.com/maps/api/js?key=" + mapApiKey + "&callback=initMap";
 	firstScriptTag.parentNode.insertBefore(tagGoogleMaps, firstScriptTag);
 
 	if (!isMobile()) {
-		var tagYouTube = document.createElement('script')
+		let tagYouTube = document.createElement('script')
 		tagYouTube.src = "https://www.youtube.com/iframe_api";
 		firstScriptTag.parentNode.insertBefore(tagYouTube, firstScriptTag);
-	}
+	};
 	
 	
 	document.querySelector('.header-navigation__btn').addEventListener('click', function () {
 		openCloseMenu();
-	})
+	});
 	document.querySelector('.header-display__btn').addEventListener('click', function () {
 		openCloseMenu();
-	})
+	});
 //	document.querySelector('.address__value').innerHTML = mapParam.address;
 	
 //	if (!isMobile()) {
@@ -467,42 +473,50 @@ function openCloseMenu () {
 	document.querySelector('.header-container').classList.toggle('view')	
 }
 $(document).ready(function () {
-	var s = '';
-	for (var i = 1; i <= $('[data-tab-link]').length; i++) {
+	let s = '';
+	for (let i = 1; i <= $('[data-tab-link]').length; i++) {
 		s += '<li class="tab-list-mobile__item" data-tab-link="' + i + '"></li>';
 	}
 	document.querySelector('.tab-list-mobile').innerHTML = s;
 	$('[data-tab]').hide();
 	$('[data-tab="1"]').show();
+	$('[data-tab="1"]').find('.screenshots-slider').on('initialized.owl.carousel', function () {
+		$(this).addClass('animated');
+		$(this).addClass('fadeIn');
+	})
 	$('[data-tab-link="1"]').addClass('active');
 	$('[data-tab-link]').click(function () {
 		$('.active[data-tab-link]').removeClass('active');
 		$(this).addClass('active');
 		$('[data-tab]').hide();
-		$('[data-tab="' + $(this).attr('data-tab-link') + '"]').show()
+		$('.screenshots-slider').trigger('stop.owl.autoplay');
+		$('.screenshots-slider').removeClass('animated');
+		$('.screenshots-slider').removeClass('fadeIn');
+		$('[data-tab="' + $(this).attr('data-tab-link') + '"]').show();
+		$('[data-tab="' + $(this).attr('data-tab-link') + '"]').find('.screenshots-slider').on('refreshed.owl.carousel', function(e) {
+			$(this).trigger('play.owl.autoplay');
+			$(this).addClass('animated');
+			$(this).addClass('fadeIn');
+		});
+			
+			
 	})
-	
 	if (document.documentElement.clientWidth > 768) {
+	
 		$('body').addClass('onepage');
 		$(".wrapper").onepage_scroll({
-			sectionContainer: "section",     // sectionContainer accepts any kind of selector in case you don't want to use section
-		//	easing: "ease",                  // Easing options accepts the CSS3 easing animation such "ease", "linear", "ease-in",
-		//									// "ease-out", "ease-in-out", or even cubic bezier value such as "cubic-bezier(0.175, 0.885, 0.420, 1.310)"
-		//	animationTime: 1000,             // AnimationTime let you define how long each section takes to animate
-	//		pagination: true,                // You can either show or hide the pagination. Toggle true for show, false for hide.
-			updateURL: true,                // Toggle this true if you want the URL to be updated automatically when the user scroll to each page.
-			loop: false,                    // You can have the page loop back to the top/bottom when the user navigates at up/down on the first/last page.
+			sectionContainer: 	"section",
+			loop: 				false,
+			responsiveFallback: 769,
+			
 			beforeMove: function (index) {
-				beforePage(index);
-			},
-			afterMove: function (index) {
-				afterPage(index);
-			},
-		//	keyboard: true,                  // You can activate the keyboard controls
-			responsiveFallback: 769,       // You can fallback to normal page scroll by defining the width of the browser in which
-											// you want the responsive fallback to be triggered. For example, set this to 600 and whenever
-											// the browser's width is less than 600, the fallback will kick in.
+							beforePage(index);
+						},
+			afterMove: 	function (index) {
+							afterPage(index);
+						}
 		});
+		
 		$('a[href="#company"]').click(function (e) {
 			e.preventDefault();
 			$(".wrapper").moveTo(2);
@@ -523,17 +537,16 @@ $(document).ready(function () {
 			$(".wrapper").moveDown();
 		})
 	} else {
-		$('.header-navigation__item').click(function () {
+		$('.header-navigation__item').click(function (e) {
+			e.preventDefault();
 			openCloseMenu();
 			$('html, body').animate({scrollTop: $($(this).attr('href')).offset().top - 50}, 'slow');
 		})
 	}
-		
 	$('.screenshots-slider').owlCarousel({
 		loop: 		true,
 		nav: 		false,
 		autoWidth: 	true,
-//		navText: [ '<img src="img/arrow-left.svg" alt="Влево">', '<img src="img/arrow-right.svg" alt="Вправо">' ],
 		items: 		1,
 		center: 	true,
 		autoplay:	true,
@@ -559,7 +572,7 @@ $(document).ready(function () {
 	})
 	
 	function setSlider (name, param) {
-		var trigger = isMobile();
+		let trigger = isMobile();
 		if (isMobile()) {
 			$(name).addClass('owl-carousel');
 			$(name).addClass('owl-theme');
